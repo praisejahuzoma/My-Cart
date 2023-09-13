@@ -1,7 +1,46 @@
 html, body {
     margin: 0;
     padding: 0;
+    font-family: 'Rubik', sans-serif;
+    background-color: #EEF0F4;
+
 }
 
+.container{
+   display: flex;
+   flex-direction: column;
+   max-width: 320px;
+   margin: 30px auto;
 
+}
+
+img{
+  max-width: 150px;
+  margin: 30px auto;
+}
+
+input {
+    color: #432000;
+    background-color: #DCE1EB;
+    border: 0;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 20px;
+    text-align: center;
+    font-family: 'Rubik', sans-serif;
+    margin-bottom: 10px;
+}
+
+button {
+    margin-bottom: 10px;
+    height: 50px;
+    color: #FDFDFD;
+    background-color: #AC485A;
+    border: none;
+    border-radius: 8px;
+    border: 0;
+    text-align: center;
+    font-family: 'Rubik', sans-serif;
+    font-size: 20px;
+}
 
