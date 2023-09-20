@@ -17,8 +17,9 @@ const database = getDatabase(app);
 const shoppingListInDB = ref(database, "shoppingList");
 
 // Get references to HTML elements
-const inputFieldEl = document.getElementById("input-field");
-const addButtonEl = document.getElementById("add-button");
+const inputFieldEl = document.getElementById("input-field")
+const addButtonEl = document.getElementById("add-button")
+const shoppingListEl = document.getElementById("shopping-list")
 
 // Add a click event listener to the "Add" button
 addButtonEl.addEventListener("click", function() {
@@ -28,6 +29,19 @@ addButtonEl.addEventListener("click", function() {
     // Push the data (item) to the "shoppingList" in the database
     push(shoppingListInDB, data);
 
-    // Log the data to the console (for debugging or confirmation)
-    console.log(data);
+    // Clear the input field after adding the item
+    clearInputField()
+
+    // Add the item to the shopping list
+    addingListToShoppingList(data)
 });
+
+function clearInputField() {
+    // Clear the input field value
+    inputFieldEl.value = ""; 
+}
+
+function addingListToShoppingList(itemValue){
+    // Add the item as an <li> element to the shopping list
+     shoppingListEl.innerHTML += `<li>${itemValue}</li>`
+}
