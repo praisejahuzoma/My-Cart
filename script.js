@@ -1,6 +1,6 @@
 // Import Firebase SDK modules for initialization and database operations
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
 
 // Firebase configuration settings for your app
 const appSettings = {
@@ -33,8 +33,26 @@ addButtonEl.addEventListener("click", function() {
     clearInputField()
 
     // Add the item to the shopping list
-    addingListToShoppingList(data)
+
 });
+
+onValue(shoppingListInDB, function(snapshot) {
+    // Convert the snapshot data to an array of items
+    let itemsArray = Object.values(snapshot.val());
+ 
+    // Clear the contents of the shopping list element
+    clearShoppingListEl();
+ 
+    // Add each item from the array to the shopping list
+    for(let i = 0; i < itemsArray.length; i++){
+        addingListToShoppingList(itemsArray[i]);
+    }
+ });
+ 
+ // Function to clear the contents of the shopping list element on the web page
+ function clearShoppingListEl(){
+     shoppingListEl.innerHTML = "";
+ }
 
 function clearInputField() {
     // Clear the input field value
