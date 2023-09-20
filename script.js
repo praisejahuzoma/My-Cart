@@ -38,16 +38,26 @@ addButtonEl.addEventListener("click", function() {
 
 onValue(shoppingListInDB, function(snapshot) {
     // Convert the snapshot data to an array of items
-    let itemsArray = Object.values(snapshot.val());
- 
+    let itemsArray = Object.entries(snapshot.val());
+    
+    // Log the snapshot data for debugging purposes
+    console.log(snapshot.val());
+    
     // Clear the contents of the shopping list element
     clearShoppingListEl();
  
     // Add each item from the array to the shopping list
     for(let i = 0; i < itemsArray.length; i++){
-        addingListToShoppingList(itemsArray[i]);
+        let currentItem = itemsArray[i]
+        
+        // Extract the item's ID and value from the array
+        let currentItemID = currentItem[0]
+        let currentItemValue = currentItem[1]
+        
+        // Add the item to the shopping list
+        addingListToShoppingList(currentItemValue);
     }
- });
+});
  
  // Function to clear the contents of the shopping list element on the web page
  function clearShoppingListEl(){
