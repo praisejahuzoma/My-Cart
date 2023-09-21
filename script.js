@@ -1,6 +1,6 @@
 // Import Firebase SDK modules for initialization and database operations
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
 
 // Firebase configuration settings for your app
 const appSettings = {
@@ -31,45 +31,57 @@ addButtonEl.addEventListener("click", function() {
 
     // Clear the input field after adding the item
     clearInputField()
-
-    // Add the item to the shopping list
-
 });
 
 onValue(shoppingListInDB, function(snapshot) {
-    // Convert the snapshot data to an array of items
-    let itemsArray = Object.entries(snapshot.val());
+    // Challenge: Change the onValue code so that it uses snapshot.exists() to show items when there are items in the database and if there are not displays the text 'No items here... yet'.
     
-    // Log the snapshot data for debugging purposes
-    console.log(snapshot.val());
-    
-    // Clear the contents of the shopping list element
-    clearShoppingListEl();
- 
-    // Add each item from the array to the shopping list
-    for(let i = 0; i < itemsArray.length; i++){
-        let currentItem = itemsArray[i]
-        
-        // Extract the item's ID and value from the array
-        let currentItemID = currentItem[0]
-        let currentItemValue = currentItem[1]
-        
-        // Add the item to the shopping list
-        addingListToShoppingList(currentItemValue);
+    if (snapshot.exists()) {
+        // Convert the snapshot data to an array of items
+        let itemsArray = Object.entries(snapshot.val())
+       
+        // Clear the contents of the shopping list element
+        clearShoppingListEl()
+
+        // Add each item from the array to the shopping list
+        for (let i = 0; i < itemsArray.length; i++) {
+            let currentItem = itemsArray[i]
+
+            // Extract the item's ID and value from the array
+            let currentItemID = currentItem[0]
+            let currentItemValue = currentItem[1]
+            
+            // Add the item to the shopping list
+            appendItemToShoppingListEl(currentItem)
+        }    
+    } else {
+        shoppingListEl.innerHTML = "No items here... yet"
     }
 });
- 
- // Function to clear the contents of the shopping list element on the web page
- function clearShoppingListEl(){
-     shoppingListEl.innerHTML = "";
- }
+
+// Function to clear the contents of the shopping list element on the web page
+function clearShoppingListEl(){
+    shoppingListEl.innerHTML = "";
+}
 
 function clearInputField() {
     // Clear the input field value
     inputFieldEl.value = ""; 
 }
 
-function addingListToShoppingList(itemValue){
+function appendItemToShoppingListEl(item) {
     // Add the item as an <li> element to the shopping list
-     shoppingListEl.innerHTML += `<li>${itemValue}</li>`
+    let itemID = item[0]
+    let itemValue = item[1]
+    let newEl = document.createElement("li")
+    
+    newEl.textContent = itemValue
+
+    // Function for deleting list
+    newEl.addEventListener("click", function() {
+        let exactLocationOfItemInDB = ref(database, `shoppingList/${itemID}`)
+        remove(exactLocationOfItemInDB)
+    })
+    
+    shoppingListEl.append(newEl)
 }

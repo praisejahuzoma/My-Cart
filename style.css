@@ -2,8 +2,8 @@ html, body {
     margin: 0;
     padding: 0;
     font-family: 'Rubik', sans-serif;
-    background-color: #EEF0F4;
-
+    background-color: #FFFBFF;
+    user-select: none;
 }
 
 .container{
@@ -20,8 +20,8 @@ img{
 }
 
 input {
-    color: #d98e55;
-    background-color: #DCE1EB;
+    color: #92817A;
+    background-color: #edd1c4;
     border: 0;
     padding: 15px;
     border-radius: 8px;
@@ -34,8 +34,8 @@ input {
 button {
     margin-bottom: 10px;
     height: 50px;
-    color: #FDFDFD;
-    background-color: #43210d;
+    color: #fdfdfd;
+    background-color: #723f12;
     border: none;
     border-radius: 8px;
     border: 0;
@@ -43,6 +43,11 @@ button {
     font-family: 'Rubik', sans-serif;
     font-size: 20px;
 }
+
+button:hover{
+ background-color:#7c5a48 ;
+}
+
 ul{
     list-style-type:none;
     display: flex;
@@ -52,11 +57,15 @@ ul{
 }
 
 ul li{
-    background-color: #FFFDF8;
+    background-color: #F1DABF;
     box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
     padding: 15px;
-    border-radius: 13px;
+    border-radius: 12px;
     flex-grow: 1;
     text-align: center;
+}
+ul li:hover{
+    background-color: #e7c384;
+    cursor: pointer;
 }
 
